@@ -14,8 +14,8 @@ class CatalogPage extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider<Catalog>(
-        create: (_) => Catalog(),
+      home: BlocProvider<CatalogCubit>(
+        create: (_) => CatalogCubit(),
         child: MyCatalogPage(),
       ),
     );
@@ -27,8 +27,7 @@ class MyCatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double i = 0;
-    final catalog = context.read<Catalog>();
+    final catalog = context.read<CatalogCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Catalog (flutter_bloc_with_cubit)'),
@@ -37,7 +36,7 @@ class MyCatalogPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            BlocBuilder<Catalog, double>(
+            BlocBuilder<CatalogCubit, double>(
               builder: (context, totalAmount) => Expanded(
                 child: ListView.builder(
                   itemCount: catalog.listProduct.length,
@@ -73,11 +72,11 @@ class MyCatalogPage extends StatelessWidget {
                               children: [
                                 IconButton(
                                   icon: Icon(Icons.exposure_plus_1),
-                                  onPressed: () => context.read<Catalog>().addProduct(product),
+                                  onPressed: () => context.read<CatalogCubit>().addProduct(product),
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.exposure_minus_1),
-                                  onPressed: () => context.read<Catalog>().deleteProduct(product),
+                                  onPressed: () => context.read<CatalogCubit>().deleteProduct(product),
                                 ),
                               ],
                             ),
@@ -102,7 +101,7 @@ class MyCatalogPage extends StatelessWidget {
         width: 200,
         child: FloatingActionButton.extended(
           onPressed: () {},
-          label: BlocBuilder<Catalog, double>(
+          label: BlocBuilder<CatalogCubit, double>(
             builder: (context, totalAmount) => Text(
               'Total: ${totalAmount.toString()} \$',
               style: const TextStyle(
