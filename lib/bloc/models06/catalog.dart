@@ -35,12 +35,6 @@ class CatalogBloc {
         listProduct[productFind] = (listProduct[productFind] ?? 0) - 1;
       }
     }
-    if (action == CatalogEvent.total) {
-      totalAmount = 0;
-      listProduct.forEach((product, amount) {
-        totalAmount = totalAmount + product.cost * amount;
-      });
-    }
 
     totalAmount = 0;
     listProduct.forEach((product, amount) {
