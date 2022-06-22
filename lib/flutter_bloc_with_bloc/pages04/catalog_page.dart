@@ -14,8 +14,8 @@ class CatalogPage extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider<Catalog>(
-        create: (_) => Catalog(),
+      home: BlocProvider<CatalogBloc>(
+        create: (_) => CatalogBloc(),
         child: MyCatalogPage(),
       ),
     );
@@ -27,8 +27,7 @@ class MyCatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double i = 0;
-    final catalog = context.read<Catalog>();
+    final catalog = context.read<CatalogBloc>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Catalog (flutter_bloc_with_bloc)'),
@@ -37,7 +36,7 @@ class MyCatalogPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            BlocBuilder<Catalog, double>(
+            BlocBuilder<CatalogBloc, double>(
               builder: (_, state) => Expanded(
                 child: ListView.builder(
                   itemCount: catalog.listProduct.length,
@@ -74,15 +73,15 @@ class MyCatalogPage extends StatelessWidget {
                                 IconButton(
                                   icon: Icon(Icons.exposure_plus_1),
                                   onPressed: () {
-                                    context.read<Catalog>().addProduct(product);
-                                    context.read<Catalog>().add(TotalAmountFind());
+                                    context.read<CatalogBloc>().addProduct(product);
+                                    context.read<CatalogBloc>().add(TotalAmountFind());
                                   },
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.exposure_minus_1),
                                   onPressed: () {
-                                    context.read<Catalog>().deleteProduct(product);
-                                    context.read<Catalog>().add(TotalAmountFind());
+                                    context.read<CatalogBloc>().deleteProduct(product);
+                                    context.read<CatalogBloc>().add(TotalAmountFind());
                                   },
                                 ),
                               ],
@@ -108,7 +107,7 @@ class MyCatalogPage extends StatelessWidget {
         width: 200,
         child: FloatingActionButton.extended(
           onPressed: () {},
-          label: BlocBuilder<Catalog, double>(
+          label: BlocBuilder<CatalogBloc, double>(
             builder: (_, state) => Text(
               'Total: ${state.toString()} \$',
               style: const TextStyle(
