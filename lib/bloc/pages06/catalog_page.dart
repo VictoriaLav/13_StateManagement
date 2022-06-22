@@ -29,6 +29,13 @@ class _MyCatalogPageState extends State<MyCatalogPage> {
   late final CatalogBloc bloc = CatalogBloc();
 
   @override
+  void dispose() {
+    print('close stream');
+    bloc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<double>(
       stream: bloc.state,
@@ -110,10 +117,7 @@ class _MyCatalogPageState extends State<MyCatalogPage> {
           floatingActionButton: Container(
             width: 200,
             child: FloatingActionButton.extended(
-              onPressed: () {
-                productFind = bloc.listProduct.keys.toList()[5];
-                bloc.action.add(CatalogEvent.add);
-              },
+              onPressed: () {},
               label: Text(
                 'Total: ${(snapshot.data ?? 0).toString()} \$',
                 style: const TextStyle(
