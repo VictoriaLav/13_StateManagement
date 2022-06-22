@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/product.dart';
 
-class Catalog extends Bloc<Product, double> {
+class CatalogCubit extends Cubit<double> {
 
   late Map<Product, int> listProduct;
 
-  Catalog() : super(0) {
+  CatalogCubit() : super(0) {
     listProduct = loadProduct();
   }
 
@@ -27,6 +27,4 @@ class Catalog extends Bloc<Product, double> {
       emit(state + product.cost * amount);
     });
   }
-
 }
-
